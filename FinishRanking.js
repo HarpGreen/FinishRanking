@@ -39,12 +39,12 @@ mc.listen("onServerStarted", () => {
 function Finish(pl){
     let name = pl.name;
     let dev = pl.getDevice();
-    db = new KVDatabase("./plugins/HG/FinishRanking");
+    let db = new KVDatabase("./plugins/HG/FinishRanking");
     if(db==null){
         pl.sendText("登记名次时发生错误！请重试！", )
     }
-    ranklist = db.listKey();
-    for(n of ranklist){
+    let ranklist = db.listKey();
+    for(let n of ranklist){
         if(n == name){
             db.close();
             return;
@@ -62,9 +62,9 @@ function Finish(pl){
 
 //展示排名
 function ShowRank(pl){
-    db = new KVDatabase("./plugins/HG/FinishRanking");
+    let db = new KVDatabase("./plugins/HG/FinishRanking");
     if(db==null) return;
-    ranklist = db.listKey();
+    let ranklist = db.listKey();
     let index = new Array(ranklist.length);
     for(let i=0;i<ranklist.length;i++){
         index[db.get(ranklist[i])[0]-1] = i;
@@ -78,10 +78,10 @@ function ShowRank(pl){
 }
 
 function DeleteRank(){
-    db = new KVDatabase("./plugins/HG/FinishRanking");
+    let db = new KVDatabase("./plugins/HG/FinishRanking");
     if(db==null) return;
-    ranklist = db.listKey();
-    for(n of ranklist){
+    let ranklist = db.listKey();
+    for(let n of ranklist){
         db.delete(n);
     }
     db.close();
